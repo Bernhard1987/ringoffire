@@ -1,0 +1,19 @@
+.playtable {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('/assets/img/board.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.card-stack {
+    position: relative;
+    >img {
+        position: absolute;
+        width: 120px;
+    }
+}

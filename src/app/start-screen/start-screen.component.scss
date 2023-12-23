@@ -1,0 +1,53 @@
+@import './../../colors.scss';
+
+.start-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    max-height: 100%;
+    background-color: $grey-1;
+}
+
+.img-start {
+    display: flex;
+    position: relative;
+    background-image: url('/assets/img/rof-logo2.png');
+    height: 100vh;
+    max-height: 1000px;
+    width: 100vw;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+
+    .start-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        position: absolute;
+        bottom: 10%;
+        left: 50%;
+        width: 300px;
+        height: 75px;
+
+        color: $white;
+        font-size: 30px;
+        font-weight: bold;
+        text-shadow: $text-shadow;
+        transform: translateX(-50%);
+        background-image: url('/assets/img/startbtn.png');
+        background-position: center;
+        background-size: cover;
+        border-radius: 16px;
+        border: 3px solid $white;
+        box-shadow: $box-shadow-btn;
+        transition-duration: 125ms;
+        &:hover {
+            border: 3px solid $red-1;
+            color: $red-light-1;
+            cursor: pointer;
+        }
+    }
+}
