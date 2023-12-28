@@ -12,6 +12,11 @@ $white: #FFFFFF;
 
 $box-shadow-btn: 4px 4px 4px rgba(0, 0, 0, 0.5);
 $text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.75);
+$text-shadow-fat: 4px 4px 4px rgba(0, 0, 0, 0.75);
+$text-border-white: 2px 0px 2px $white,
+                    -2px 0px 2px $white,
+                    0px 2px 2px $white,
+                    0px -2px 2px $white;
 
 /* player colors */
 $player-red: rgba(255, 0, 0, 0.25);
@@ -21,3 +26,4 @@ $player-yellow: rgba(255, 255, 0, 0.25);
 $player-orange: rgba(255, 128, 0, 0.25);
 $player-light-blue: rgba(0, 255, 255, 0.25);
 $player-white: rgba(255, 255, 255, 0.25);
+$player-pink: rgba(255, 110, 170, 0.5);
