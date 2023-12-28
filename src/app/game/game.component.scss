@@ -1,3 +1,10 @@
+@import './../../colors.scss';
+
+.player-avatar {
+    position: fixed;
+    right: 16px;
+}
+
 .playtable {
     width: 100vw;
     height: 100vh;
@@ -24,6 +31,11 @@
     &:hover {
         transform: scale(1.05) translateY(-10px);
     }
+}
+
+.played-card {
+    right: 25px;
+    transform: scale(1) translateX(150px) translateY(-200px) rotate(-10deg); //same as pick-card-animation 100%
 }
 
 .pick-card {
