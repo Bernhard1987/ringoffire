@@ -1,5 +1,10 @@
 @import './../../colors.scss';
 
+.btn-add {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+}
 .player-avatar {
     position: fixed;
     right: 16px;
