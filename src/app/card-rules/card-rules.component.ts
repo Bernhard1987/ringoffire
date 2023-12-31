@@ -27,11 +27,19 @@ export class CardRulesComponent {
   ];
 
   title: string = '';
-  description: string = '';
+  description: string = 'Draw a card to start';
 
   @Input() card: string = '';
 
   ngOnChanges() {
-    console.log('current card: (change)', this.card);
+    if (this.card) {
+      console.log('current card: (change)', this.card);
+      let cardNumber = +this.card.split('_')[1];
+      console.log('current number is', cardNumber);
+      this.title = this.cardAction[cardNumber - 1].title;
+      this.description = this.cardAction[cardNumber - 1].description;
+      console.log('Title:', this.title, 'Des:', this.description);
+    }
+
   }
 }
