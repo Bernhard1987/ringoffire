@@ -31,11 +31,7 @@ export class CardRulesComponent {
 
   @Input() card: string = '';
 
-  ngOnInit(): void {
-    console.log('current card: (init)', this.card);
-  }
-
-  ngOnChange(): void {
+  ngOnChanges() {
     console.log('current card: (change)', this.card);
   }
 }
