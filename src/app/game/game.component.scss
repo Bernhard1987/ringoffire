@@ -5,10 +5,46 @@
     bottom: 16px;
     right: 16px;
 }
+
+.pin-bottom {
+    position: fixed;
+    bottom: 16px;
+    left: 100px;
+    right: 100px;
+}
+
 .player-avatar {
     position: fixed;
     right: 16px;
+    border-radius: 50px 16px 16px 50px;
+    background-color: $player-grey;
+
+    &:nth-child(1) {
+        background-color: $player-red;
+    }
+    &:nth-child(2) {
+        background-color: $player-green;
+    }
+    &:nth-child(3) {
+        background-color: $player-blue;
+    }
+    &:nth-child(4) {
+        background-color: $player-yellow;
+    }
+    &:nth-child(5) {
+        background-color: $player-orange;
+    }
+    &:nth-child(6) {
+        background-color: $player-light-blue;
+    }
+    &:nth-child(7) {
+        background-color: $player-white;
+    }
+    &:nth-child(8) {
+        background-color: $player-pink;
+    }
 }
+
 
 .playtable {
     width: 100vw;
