@@ -35,7 +35,7 @@ export class GameComponent {
   }
 
   takeCard() {
-    if (!this.pickCardAnimation) {
+    if (!this.pickCardAnimation && this.game.players.length > 1) {
       let internalCurrentCard = this.game.stack.pop(); //pop takes last value out of array, original value will be deleted
       if (internalCurrentCard != undefined) {
         this.currentCard = internalCurrentCard;
@@ -49,9 +49,6 @@ export class GameComponent {
         this.game.playedCard.push(this.currentCard);
         this.game.currentPlayer++;
         this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
-        // if (this.game.currentPlayer >= this.game.players.length) {
-        //   this.game.currentPlayer = 0;
-        // }
       }, 1000);
     }
   }

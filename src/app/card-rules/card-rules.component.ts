@@ -27,9 +27,10 @@ export class CardRulesComponent {
   ];
 
   title: string = '';
-  description: string = 'Take a card to start';
+  description: string = '';
 
   @Input() card: string = '';
+  @Input() players: string[] = [];
 
   ngOnChanges() {
     if (this.card) {
