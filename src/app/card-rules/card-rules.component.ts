@@ -11,23 +11,23 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class CardRulesComponent {
   cardAction = [
-    { title: 'Waterfall', description: 'Everyone has to start drinking at the same time. As soon as player 1 stops drinking, player 2 may stop drinking. Player 3 may stop as soon as player 2 stops drinking, and so on.' },
-    { title: 'You', description: 'You decide who drinks' },
-    { title: 'Me', description: 'Congrats! Drink a shot!' },
-    { title: 'Category', description: 'Come up with a category (e.g. Colors). Each player must enumerate one item from the category.' },
-    { title: 'Bust a jive', description: 'Player 1 makes a dance move. Player 2 repeats the dance move and adds a second one. ' },
-    { title: 'Chicks', description: 'All girls drink.' },
-    { title: 'Heaven', description: 'Put your hands up! The last player drinks!' },
-    { title: 'Mate', description: 'Pick a mate. Your mate must always drink when you drink and the other way around.' },
-    { title: 'Thumbmaster', description: '' },
-    { title: 'Men', description: 'All men drink.' },
-    { title: 'Quizmaster', description: '' },
-    { title: 'Never have i ever...', description: 'Say something you never did. Everyone who did it has to drink.' },
-    { title: 'Rule', description: 'Make a rule. Everyone needs to drink when he breaks the rule.' },
+    { "title": "Waterfall", "description": "Everyone starts drinking, and no one can stop until the person to their right stops." },
+    { "title": "You", "description": "The person who drew the card chooses someone to take a drink." },
+    { "title": "Me", "description": "The person who drew the card takes a drink." },
+    { "title": "Floor", "description": "Everyone must touch the floor, and the last person to do so takes a drink." },
+    { "title": "Guys", "description": "All guys take a drink." },
+    { "title": "Chicks", "description": "All girls take a drink." },
+    { "title": "Heaven", "description": "Everyone reaches for the sky, and the last person to do so takes a drink." },
+    { "title": "Mate", "description": "The person who drew the card chooses a drinking buddy. Whenever they drink, the buddy must drink as well." },
+    { "title": "Rhyme", "description": "The person who drew the card says a word, and everyone else must say a word that rhymes with it. The first person who can't think of a rhyme or repeats a word takes a drink." },
+    { "title": "Categories", "description": "The person who drew the card chooses a category (e.g., types of fruit, colors), and everyone must say something from that category. The first person who can't think of something or repeats an item takes a drink." },
+    { "title": "Rule", "description": "The person who drew the card makes a rule that everyone must follow until the next Jack is drawn. For example, \"No pointing\" or \"No using first names.\" Anyone caught breaking the rule takes a drink." },
+    { "title": "Questions", "description": "The person who drew the card starts by asking someone a question. That person must then ask someone else a question, and so on. The first person to fail to ask a question takes a drink." },
+    { "title": "King's Cup", "description": "The person who draws the fourth King pours a portion of their drink into a central cup in the middle of the circle. The person who draws the final King must drink the entire contents of the King's Cup." }
   ];
 
   title: string = '';
-  description: string = 'Draw a card to start';
+  description: string = 'Take a card to start';
 
   @Input() card: string = '';
 

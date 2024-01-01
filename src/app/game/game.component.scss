@@ -62,7 +62,7 @@
     position: relative;
     >img {
         position: absolute;
-        width: 120px;
+        width: 160px;
     }
 }
 
@@ -76,13 +76,13 @@
 
 .played-card {
     right: 25px;
-    transform: scale(1) translateX(150px) translateY(-200px) rotate(-10deg); //same as pick-card-animation 100%
+    transform: scale(1) translateX(180px) translateY(-240px) rotate(-10deg); //same as pick-card-animation 100%
 }
 
 .pick-card {
     transition: all 225ms ease-in-out;
     animation: pick-card-animation 1s ease-in-out;
-    transform: scale(1) translateX(150px) translateY(-200px) rotate(-10deg); //same as pick-card-animation 100%
+    transform: scale(1) translateX(180px) translateY(-240px) rotate(-10deg); //same as pick-card-animation 100%
 }
 
 @keyframes pick-card-animation {
@@ -96,6 +96,6 @@
         transform: scale(1.5);
     }
     100% {
-        transform: scale(1) translateX(150px) translateY(-200px) rotate(-10deg);
+        transform: scale(1) translateX(180px) translateY(-240px) rotate(-10deg);
     }
 }
