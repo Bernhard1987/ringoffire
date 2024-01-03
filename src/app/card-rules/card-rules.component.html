@@ -3,5 +3,5 @@
         <mat-card-title>{{ title }}</mat-card-title>
     </mat-card-header>
 
-    <mat-card-content>{{ (players.length <= 1) ? 'Please add more players (a minimum of 2 is required)' : 'Take a card to start' }}</mat-card-content>
+    <mat-card-content>{{ (players.length <= 1) ? 'Please add more players (a minimum of 2 is required)' : (cardstack.length == 52) ? 'Take a card to start' : description}}</mat-card-content>
 </mat-card>

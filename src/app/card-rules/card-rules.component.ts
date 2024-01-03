@@ -31,15 +31,13 @@ export class CardRulesComponent {
 
   @Input() card: string = '';
   @Input() players: string[] = [];
+  @Input() cardstack: string[] = [];
 
   ngOnChanges() {
     if (this.card) {
-      console.log('current card: (change)', this.card);
       let cardNumber = +this.card.split('_')[1];
-      console.log('current number is', cardNumber);
       this.title = this.cardAction[cardNumber - 1].title;
       this.description = this.cardAction[cardNumber - 1].description;
-      console.log('Title:', this.title, 'Des:', this.description);
     }
 
   }

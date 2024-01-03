@@ -31,7 +31,7 @@ export class GameComponent {
   }
 
   newGame() {
-    console.log(this.game);
+    console.log("new game started:", this.game);
   }
 
   takeCard() {
@@ -39,8 +39,6 @@ export class GameComponent {
       let internalCurrentCard = this.game.stack.pop(); //pop takes last value out of array, original value will be deleted
       if (internalCurrentCard != undefined) {
         this.currentCard = internalCurrentCard;
-        console.log('New Card: ', this.currentCard);
-        console.log('Game is ', this.game);
       }
       this.pickCardAnimation = true;
 
