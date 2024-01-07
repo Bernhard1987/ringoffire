@@ -42,7 +42,7 @@ export class GameComponent {
         this.currentCard = internalCurrentCard;
       }
       this.pickCardAnimation = true;
-
+      console.log(this.game.stack.length);
       setTimeout(() => {
         this.pickCardAnimation = false;
         this.game.playedCard.push(this.currentCard);
@@ -54,11 +54,12 @@ export class GameComponent {
 
   drawCardStackAmount(): string[] {
     let drawableStack;
-    if (this.game.stack.length >= this.drawableCardStackAmount) {
+    if (this.game.stack.length > this.drawableCardStackAmount) {
       drawableStack = this.game.stack.slice(this.game.stack.length - this.drawableCardStackAmount);
       return drawableStack;
     } else {
-      return this.game.stack;
+      drawableStack = this.game.stack.slice(1);
+      return drawableStack;
     }
   }
 
