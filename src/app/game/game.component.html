@@ -1,5 +1,5 @@
-<app-player *ngFor="let player of game.players; let i = index" [ngStyle]="{'top.px': 16 + (i * 86)}" 
-[playerActive]="i == game.currentPlayer" [name]="player" class="player-avatar"></app-player>
+<app-player *ngFor="let player of game.players; let i = index" [ngStyle]="{'top.px': 16 + (i * 86)}"
+    [playerActive]="i == game.currentPlayer" [name]="player" class="player-avatar"></app-player>
 
 <div class="playtable">
     <div class="card-stack" *ngIf="this.game.stack && this.game.stack.length > 0">
@@ -7,7 +7,8 @@
         <img *ngFor="let c of drawCardStackAmount(); let i = index;" [ngStyle]="{'right.px': i * 5}"
             src="assets/img/cards/rof_cover.png">
         <!-- Top card of stack to take card -->
-        <img (click)="takeCard()" class="top-card" [ngStyle]="{'right.px': 5 * (drawCardStackAmount().length + 1)}" src="assets/img/cards/rof_cover.png">
+        <img (click)="takeCard()" class="top-card" [ngStyle]="{'right.px': 5 * (drawCardStackAmount().length + 1)}"
+            src="assets/img/cards/rof_cover.png">
         <!-- Stack of played cards -->
         <img *ngFor="let card of game.playedCard" class="played-card" src="assets/img/cards/{{ card }}.svg">
         <!-- current card animation -->
@@ -15,9 +16,15 @@
             src="assets/img/cards/{{ currentCard }}.svg">
     </div>
 </div>
+<div class="btn-bottom-container">
+    <button mat-fab (click)="openDialog(imprintComponent)" color="primary" class="btn-add">
+        <mat-icon>info</mat-icon>
+    </button>
+    <button mat-fab (click)="openDialog(addPlayerComponent)" color="primary" class="btn-add">
+        <mat-icon>add</mat-icon>
+    </button>
+</div>
 
-<button mat-fab (click)="openDialog()" color="primary" class="btn-add">
-    <mat-icon>add</mat-icon>
-</button>
 
-<app-card-rules [card]="currentCard" [players]="game.players" [cardstack]="game.stack" class="pin-bottom"></app-card-rules>
+<app-card-rules [card]="currentCard" [players]="game.players" [cardstack]="game.stack"
+    class="pin-bottom"></app-card-rules>

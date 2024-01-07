@@ -10,16 +10,27 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 
 import { MatDialog } from '@angular/material/dialog';
+import { ComponentType } from '@angular/cdk/portal';
+import { DialogImprintComponent } from '../dialog-imprint/dialog-imprint.component';
 
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [CommonModule, PlayerComponent, CardRulesComponent, MatButtonModule, MatIconModule, MatDialogModule],
+  imports: [CommonModule,
+            PlayerComponent,
+            CardRulesComponent,
+            MatButtonModule,
+            MatIconModule,
+            MatDialogModule,
+            DialogAddPlayerComponent,
+            DialogImprintComponent],
   templateUrl: './game.component.html',
   styleUrl: './game.component.scss'
 })
 
 export class GameComponent {
+  addPlayerComponent = DialogAddPlayerComponent;
+  imprintComponent = DialogImprintComponent;
   pickCardAnimation = false;
   currentCard: string = '';
   game: Game = new Game;
@@ -42,7 +53,6 @@ export class GameComponent {
         this.currentCard = internalCurrentCard;
       }
       this.pickCardAnimation = true;
-      console.log(this.game.stack.length);
       setTimeout(() => {
         this.pickCardAnimation = false;
         this.game.playedCard.push(this.currentCard);
@@ -63,8 +73,8 @@ export class GameComponent {
     }
   }
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(DialogAddPlayerComponent);
+  openDialog(component: ComponentType<any>): void {
+    const dialogRef = this.dialog.open(component);
 
     dialogRef.afterClosed().subscribe(name => {
       if (name && name.length > 0) {

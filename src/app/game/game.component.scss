@@ -1,6 +1,9 @@
 @import './../../colors.scss';
 
-.btn-add {
+.btn-bottom-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
     position: fixed;
     bottom: 16px;
     right: 16px;
