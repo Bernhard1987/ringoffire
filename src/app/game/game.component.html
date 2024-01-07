@@ -2,12 +2,12 @@
 [playerActive]="i == game.currentPlayer" [name]="player" class="player-avatar"></app-player>
 
 <div class="playtable">
-    <div class="card-stack">
+    <div class="card-stack" *ngIf="this.game.stack && this.game.stack.length > 0">
         <!-- Card stack -->
-        <img *ngFor="let c of [1,2,3,4]; let i = index;" [ngStyle]="{'right.px': i * 5}"
+        <img *ngFor="let c of drawCardStackAmount(); let i = index;" [ngStyle]="{'right.px': i * 5}"
             src="assets/img/cards/rof_cover.png">
         <!-- Top card of stack to take card -->
-        <img (click)="takeCard()" class="top-card" style="right: 25px;" src="assets/img/cards/rof_cover.png">
+        <img (click)="takeCard()" class="top-card" [ngStyle]="{'right.px': 5 * (drawCardStackAmount().length + 1)}" src="assets/img/cards/rof_cover.png">
         <!-- Stack of played cards -->
         <img *ngFor="let card of game.playedCard" class="played-card" src="assets/img/cards/{{ card }}.svg">
         <!-- current card animation -->

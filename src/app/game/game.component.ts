@@ -23,6 +23,7 @@ export class GameComponent {
   pickCardAnimation = false;
   currentCard: string = '';
   game: Game = new Game;
+  drawableCardStackAmount: number = 9;
 
   constructor(public dialog: MatDialog) { }
 
@@ -48,6 +49,16 @@ export class GameComponent {
         this.game.currentPlayer++;
         this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
       }, 1000);
+    }
+  }
+
+  drawCardStackAmount(): string[] {
+    let drawableStack;
+    if (this.game.stack.length >= this.drawableCardStackAmount) {
+      drawableStack = this.game.stack.slice(this.game.stack.length - this.drawableCardStackAmount);
+      return drawableStack;
+    } else {
+      return this.game.stack;
     }
   }
 
