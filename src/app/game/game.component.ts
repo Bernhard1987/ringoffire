@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Game } from '../../models/game';
+import { GameUpdateService } from '../firebase-services/game-update.service';
 import { PlayerComponent } from '../player/player.component';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 import { CardRulesComponent } from '../card-rules/card-rules.component';
@@ -36,14 +37,16 @@ export class GameComponent {
   game: Game = new Game;
   drawableCardStackAmount: number = 9;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(private gameUpdateService: GameUpdateService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.newGame();
+    const gameCollection = this.gameUpdateService.getGamesRef();
+    console.log(gameCollection);
   }
 
   newGame() {
-    console.log("new game started:", this.game);
+    this.game = new Game;
   }
 
   takeCard() {
