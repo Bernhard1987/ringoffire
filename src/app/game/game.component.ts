@@ -41,8 +41,8 @@ export class GameComponent {
 
   ngOnInit(): void {
     this.newGame();
-    const gameCollection = this.gameUpdateService.getGamesRef();
-    console.log(gameCollection);
+    // const gameCollection = this.gameUpdateService.;
+    // console.log(gameCollection);
   }
 
   newGame() {
