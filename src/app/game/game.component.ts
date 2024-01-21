@@ -13,18 +13,20 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { ComponentType } from '@angular/cdk/portal';
 import { DialogImprintComponent } from '../dialog-imprint/dialog-imprint.component';
+import { GameData } from '../interfaces/game-data.interface';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-game',
   standalone: true,
   imports: [CommonModule,
-            PlayerComponent,
-            CardRulesComponent,
-            MatButtonModule,
-            MatIconModule,
-            MatDialogModule,
-            DialogAddPlayerComponent,
-            DialogImprintComponent],
+    PlayerComponent,
+    CardRulesComponent,
+    MatButtonModule,
+    MatIconModule,
+    MatDialogModule,
+    DialogAddPlayerComponent,
+    DialogImprintComponent],
   templateUrl: './game.component.html',
   styleUrl: './game.component.scss'
 })
@@ -37,16 +39,29 @@ export class GameComponent {
   game: Game = new Game;
   drawableCardStackAmount: number = 9;
 
-  constructor(private gameUpdateService: GameUpdateService, public dialog: MatDialog) { }
+  constructor(private route: ActivatedRoute, private gameUpdateService: GameUpdateService, 
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.newGame();
-    // const gameCollection = this.gameUpdateService.;
-    // console.log(gameCollection);
+    this.route.params.subscribe((params) => {
+      console.log(params);
+    })
   }
 
   newGame() {
     this.game = new Game;
+    this.addGame();
+  }
+
+  addGame() {
+    let newGame: GameData = {
+      players: this.game.players,
+      stack: this.game.stack,
+      playedCard: this.game.playedCard,
+      currentPlayer: this.game.currentPlayer,
+    }
+    // this.gameUpdateService.addGame(newGame);
   }
 
   takeCard() {

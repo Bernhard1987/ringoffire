@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, doc, collectionData, onSnapshot, collection } from '@angular/fire/firestore';
+import { Firestore, doc, addDoc, collectionData, onSnapshot, collection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { GameData } from '../interfaces/game-data.interface';
 
@@ -17,6 +17,10 @@ export class GameUpdateService {
 
   constructor() {
     this.unsubList = this.collectGamesList();
+  }
+
+  ngOnDestroy() {
+    this.unsubList();
   }
 
   collectGamesList() {
@@ -42,6 +46,20 @@ export class GameUpdateService {
       stack: obj.stack || "",
       playedCard: obj.playedCard || "",
       currentPlayer: obj.currentPlayer || 0
+    }
+  }
+
+  async addGame(newGame: GameData) {
+    await addDoc(this.getGamesRef(), newGame).catch(
+      (err) => { console.error(err) }
+    ).then((docRef) => { console.log("new game added with id: ", docRef?.id) }
+    );
+  }
+
+  async updateGame(currentGame: string) {
+    if (currentGame) {
+      let docRef = this.getSingleGameRef('games', currentGame);
+      console.log(docRef);
     }
   }
 }
