@@ -45,8 +45,10 @@ export class GameComponent {
   ngOnInit(): void {
     this.newGame();
     this.route.params.subscribe((params) => {
-      console.log(params);
-    })
+      this.gameUpdateService.gameId = params['id'];
+    });
+    console.log("gameId is ", this.gameUpdateService.gameId);
+    this.loadGame();
   }
 
   newGame() {
@@ -62,6 +64,22 @@ export class GameComponent {
       currentPlayer: this.game.currentPlayer,
     }
     // this.gameUpdateService.addGame(newGame);
+  }
+
+  loadGame() {
+    this.gameUpdateService.loadGame();
+    console.log("current game is", this.gameUpdateService.currentGame);
+    console.log(this.toJson(this.gameUpdateService.currentGame));
+  }
+
+  toJson(currentGame: GameData[]) {
+    let cleanCurrentGame = currentGame[0];
+    return {
+      players: cleanCurrentGame.players,
+      stack: cleanCurrentGame.stack,
+      playedCard: cleanCurrentGame.playedCard,
+      currentPlayer: cleanCurrentGame.currentPlayer,
+    }
   }
 
   takeCard() {

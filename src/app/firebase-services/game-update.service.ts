@@ -10,24 +10,29 @@ import { GameData } from '../interfaces/game-data.interface';
 export class GameUpdateService {
 
   gameList: GameData[] = [];
+  currentGame: GameData[] = [];
+  gameId: string = '';
 
   unsubList;
+  // unsubGame;
 
   firestore: Firestore = inject(Firestore);
 
   constructor() {
     this.unsubList = this.collectGamesList();
+    // this.unsubGame = this.loadGame();
   }
 
   ngOnDestroy() {
     this.unsubList();
+    // this.unsubGame();
   }
 
   collectGamesList() {
     return onSnapshot(this.getGamesRef(), (list) => {
       this.gameList = [];
       list.forEach(element => {
-        this.gameList.push(this.setGameObject(element.data(), element.id));
+        this.gameList.push(this.setGameObject(element.data()));
       })
     })
   }
@@ -40,7 +45,7 @@ export class GameUpdateService {
     return doc(collection(this.firestore, colId), docId);
   }
 
-  setGameObject(obj: any, id: string): GameData {
+  setGameObject(obj: any): GameData {
     return {
       players: obj.players || "",
       stack: obj.stack || "",
@@ -52,14 +57,26 @@ export class GameUpdateService {
   async addGame(newGame: GameData) {
     await addDoc(this.getGamesRef(), newGame).catch(
       (err) => { console.error(err) }
-    ).then((docRef) => { console.log("new game added with id: ", docRef?.id) }
+    ).then((docRef) => { 
+      console.log("new game added with id: ", docRef?.id);
+      if (docRef) {
+        this.gameId = docRef?.id; 
+      }
+    }
     );
   }
 
-  async updateGame(currentGame: string) {
-    if (currentGame) {
-      let docRef = this.getSingleGameRef('games', currentGame);
+  async updateGame() {
+    if (this.gameId) {
+      let docRef = this.getSingleGameRef('games', this.gameId);
       console.log(docRef);
     }
+  }
+
+  loadGame() {
+    return onSnapshot(this.getSingleGameRef('games', this.gameId), (doc) => {
+      let dataResult = this.setGameObject(doc.data());
+      this.currentGame.push(dataResult);
+    });
   }
 }
