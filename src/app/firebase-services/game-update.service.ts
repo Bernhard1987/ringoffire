@@ -10,7 +10,12 @@ import { GameData } from '../interfaces/game-data.interface';
 export class GameUpdateService {
 
   gameList: GameData[] = [];
-  currentGame: GameData[] = [];
+  currentGame: GameData = {
+    players: [],
+    stack: [],
+    playedCard: [],
+    currentPlayer: 0
+  };
   gameId: string = '';
 
   unsubList;
@@ -73,10 +78,16 @@ export class GameUpdateService {
     }
   }
 
-  loadGame() {
-    return onSnapshot(this.getSingleGameRef('games', this.gameId), (doc) => {
-      let dataResult = this.setGameObject(doc.data());
-      this.currentGame.push(dataResult);
+  loadGame(): Observable<GameData> {
+    return new Observable((observer) => {
+      onSnapshot(this.getSingleGameRef('games', this.gameId), (doc) => {
+        let dataResult = this.setGameObject(doc.data());
+        this.currentGame = dataResult;
+        observer.next(dataResult);
+        observer.complete();
+      }, (error) => {
+        observer.error(error);
+      });
     });
   }
 }

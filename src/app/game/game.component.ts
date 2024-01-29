@@ -39,7 +39,7 @@ export class GameComponent {
   game: Game = new Game;
   drawableCardStackAmount: number = 9;
 
-  constructor(private route: ActivatedRoute, private gameUpdateService: GameUpdateService, 
+  constructor(private route: ActivatedRoute, private gameUpdateService: GameUpdateService,
     public dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -67,13 +67,19 @@ export class GameComponent {
   }
 
   loadGame() {
-    this.gameUpdateService.loadGame();
-    console.log("current game is", this.gameUpdateService.currentGame);
-    console.log(this.toJson(this.gameUpdateService.currentGame));
+    this.gameUpdateService.loadGame().subscribe({
+      next: (gameData) => {
+        this.game = gameData;
+        console.log("current game is (game)", this.game);
+      },
+      error: (error) => {
+        console.error("Error in loading game", error);
+      }
+    });
   }
 
-  toJson(currentGame: GameData[]) {
-    let cleanCurrentGame = currentGame[0];
+  toJson(currentGame: GameData) {
+    let cleanCurrentGame = currentGame;
     return {
       players: cleanCurrentGame.players,
       stack: cleanCurrentGame.stack,
