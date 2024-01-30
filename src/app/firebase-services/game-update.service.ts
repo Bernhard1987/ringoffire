@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { Firestore, doc, addDoc, collectionData, updateDoc, onSnapshot, collection } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Game } from '../../models/game';
 
 @Injectable({
@@ -19,18 +19,17 @@ export class GameUpdateService {
   gameId: string = '';
 
   unsubList;
-  // unsubGame;
+  gameUnsub!: () => void;
+  gameSubscription: Subscription = new Subscription;
 
   firestore: Firestore = inject(Firestore);
 
   constructor() {
     this.unsubList = this.collectGamesList();
-    // this.unsubGame = this.loadGame();
   }
 
   ngOnDestroy() {
     this.unsubList();
-    // this.unsubGame();
   }
 
   collectGamesList() {
@@ -89,14 +88,19 @@ export class GameUpdateService {
 
   loadGame(): Observable<Game> {
     return new Observable((observer) => {
-      onSnapshot(this.getSingleGameRef('games', this.gameId), (doc) => {
+      this.gameUnsub = onSnapshot(this.getSingleGameRef('games', this.gameId), (doc) => {
         let dataResult = this.setGameObject(doc.data());
         this.currentGame = dataResult;
         observer.next(dataResult);
-        observer.complete();
       }, (error) => {
         observer.error(error);
       });
     });
+  }
+
+  unsubscribeGame() {
+    if (this.gameUnsub) {
+      this.gameUnsub();
+    }
   }
 }

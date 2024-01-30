@@ -14,6 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ComponentType } from '@angular/cdk/portal';
 import { DialogImprintComponent } from '../dialog-imprint/dialog-imprint.component';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-game',
@@ -43,7 +44,6 @@ export class GameComponent {
     public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    // this.newGame();
     this.route.params.subscribe((params) => {
       this.gameUpdateService.gameId = params['id'];
     });
@@ -51,10 +51,9 @@ export class GameComponent {
     this.loadGame();
   }
 
-  // newGame() {
-  //   this.game = new Game;
-  //   // this.addGame();
-  // }
+  ngOnDestroy() {
+    this.gameUpdateService.unsubscribeGame();
+  }
 
   loadGame() {
     this.gameUpdateService.loadGame().subscribe({
@@ -66,6 +65,11 @@ export class GameComponent {
         console.error("Error in loading game", error);
       }
     });
+  }
+
+  updateGame() {
+    this.gameUpdateService.currentGame = this.game;
+    this.gameUpdateService.updateGame();
   }
 
   takeCard() {
@@ -80,6 +84,7 @@ export class GameComponent {
         this.game.playedCard.push(this.currentCard);
         this.game.currentPlayer++;
         this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
+        this.updateGame();
       }, 1000);
     }
   }
@@ -101,8 +106,7 @@ export class GameComponent {
     dialogRef.afterClosed().subscribe(name => {
       if (name && name.length > 0) {
         this.game.players.push(name);
-        this.gameUpdateService.currentGame = this.game;
-        this.gameUpdateService.updateGame();
+        this.updateGame();
       }
     });
   }
