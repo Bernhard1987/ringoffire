@@ -38,6 +38,7 @@ export class GameComponent {
   currentCard: string = '';
   game: Game = new Game;
   drawableCardStackAmount: number = 9;
+  gameId: string = '';
 
   constructor(private route: ActivatedRoute, private gameUpdateService: GameUpdateService,
     public dialog: MatDialog) { }
@@ -53,17 +54,7 @@ export class GameComponent {
 
   newGame() {
     this.game = new Game;
-    this.addGame();
-  }
-
-  addGame() {
-    let newGame: GameData = {
-      players: this.game.players,
-      stack: this.game.stack,
-      playedCard: this.game.playedCard,
-      currentPlayer: this.game.currentPlayer,
-    }
-    // this.gameUpdateService.addGame(newGame);
+    // this.addGame();
   }
 
   loadGame() {
