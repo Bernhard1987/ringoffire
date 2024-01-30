@@ -76,7 +76,6 @@ export class GameUpdateService {
   async updateGame() {
     if (this.gameId) {
       let docRef = this.getSingleGameRef('games', this.gameId);
-      console.log('updateGame responds ', docRef.id);
       await updateDoc(docRef, this.getCleanJson(this.currentGame));
     }
   }

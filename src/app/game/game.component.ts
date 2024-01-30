@@ -57,7 +57,6 @@ export class GameComponent {
     this.gameUpdateService.loadGame().subscribe({
       next: (gameData) => {
         this.game = gameData;
-        console.log("current game is (game)", this.game);
       },
       error: (error) => {
         console.error("Error in loading game", error);
@@ -75,8 +74,6 @@ export class GameComponent {
       let internalCurrentCard = this.game.stack.pop(); //pop takes last value out of array, original value will be deleted
       if (internalCurrentCard != undefined) {
         this.game.currentCard = internalCurrentCard;
-        console.log('internalCurrentCard is ', internalCurrentCard);
-        this.updateGame();
       }
       this.game.pickCardAnimation = true;
       this.updateGame();
