@@ -13,7 +13,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { ComponentType } from '@angular/cdk/portal';
 import { DialogImprintComponent } from '../dialog-imprint/dialog-imprint.component';
-import { GameData } from '../interfaces/game-data.interface';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -44,18 +43,18 @@ export class GameComponent {
     public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.newGame();
+    // this.newGame();
     this.route.params.subscribe((params) => {
       this.gameUpdateService.gameId = params['id'];
     });
-    console.log("gameId is ", this.gameUpdateService.gameId);
+    this.gameId = this.gameUpdateService.gameId;
     this.loadGame();
   }
 
-  newGame() {
-    this.game = new Game;
-    // this.addGame();
-  }
+  // newGame() {
+  //   this.game = new Game;
+  //   // this.addGame();
+  // }
 
   loadGame() {
     this.gameUpdateService.loadGame().subscribe({
@@ -67,16 +66,6 @@ export class GameComponent {
         console.error("Error in loading game", error);
       }
     });
-  }
-
-  toJson(currentGame: GameData) {
-    let cleanCurrentGame = currentGame;
-    return {
-      players: cleanCurrentGame.players,
-      stack: cleanCurrentGame.stack,
-      playedCard: cleanCurrentGame.playedCard,
-      currentPlayer: cleanCurrentGame.currentPlayer,
-    }
   }
 
   takeCard() {
@@ -112,6 +101,8 @@ export class GameComponent {
     dialogRef.afterClosed().subscribe(name => {
       if (name && name.length > 0) {
         this.game.players.push(name);
+        this.gameUpdateService.currentGame = this.game;
+        this.gameUpdateService.updateGame();
       }
     });
   }

@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, doc, addDoc, collectionData, onSnapshot, collection } from '@angular/fire/firestore';
+import { Firestore, doc, addDoc, collectionData, updateDoc, onSnapshot, collection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { GameData } from '../interfaces/game-data.interface';
+import { Game } from '../../models/game';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +9,8 @@ import { GameData } from '../interfaces/game-data.interface';
 
 export class GameUpdateService {
 
-  gameList: GameData[] = [];
-  currentGame: GameData = {
+  gameList: Game[] = [];
+  currentGame: Game = {
     players: [],
     stack: [],
     playedCard: [],
@@ -50,7 +50,7 @@ export class GameUpdateService {
     return doc(collection(this.firestore, colId), docId);
   }
 
-  setGameObject(obj: any): GameData {
+  setGameObject(obj: any): Game {
     return {
       players: obj.players || "",
       stack: obj.stack || "",
@@ -59,11 +59,10 @@ export class GameUpdateService {
     }
   }
 
-  async addGame(newGame: GameData) {
+  async addGame(newGame: Game) {
     await addDoc(this.getGamesRef(), newGame).catch(
       (err) => { console.error(err) }
     ).then((docRef) => { 
-      console.log("new game added with id: ", docRef?.id);
       if (docRef) {
         this.gameId = docRef?.id; 
       }
@@ -74,11 +73,21 @@ export class GameUpdateService {
   async updateGame() {
     if (this.gameId) {
       let docRef = this.getSingleGameRef('games', this.gameId);
-      console.log(docRef);
+      console.log('updateGame responds ', docRef.id);
+      await updateDoc(docRef, this.getCleanJson(this.currentGame));
     }
   }
 
-  loadGame(): Observable<GameData> {
+  getCleanJson(currentGame: Game): {} {
+    return {
+      players: currentGame.players,
+      stack: currentGame.stack,
+      playedCard: currentGame.playedCard,
+      currentPlayer: currentGame.currentPlayer
+    }
+  }
+
+  loadGame(): Observable<Game> {
     return new Observable((observer) => {
       onSnapshot(this.getSingleGameRef('games', this.gameId), (doc) => {
         let dataResult = this.setGameObject(doc.data());
