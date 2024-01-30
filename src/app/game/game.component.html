@@ -12,8 +12,8 @@
         <!-- Stack of played cards -->
         <img *ngFor="let card of game.playedCard" class="played-card" src="assets/img/cards/{{ card }}.svg">
         <!-- current card animation -->
-        <img (click)="takeCard()" *ngIf="pickCardAnimation" id="currentCard" class="pick-card" style="right: 25px;"
-            src="assets/img/cards/{{ currentCard }}.svg">
+        <img (click)="takeCard()" *ngIf="game.pickCardAnimation" id="currentCard" class="pick-card" style="right: 25px;"
+            src="assets/img/cards/{{ game.currentCard }}.svg">
     </div>
 </div>
 <div class="btn-bottom-container">
@@ -26,5 +26,5 @@
 </div>
 
 
-<app-card-rules [card]="currentCard" [players]="game.players" [cardstack]="game.stack"
+<app-card-rules [card]="game.currentCard" [players]="game.players" [cardstack]="game.stack"
     class="pin-bottom"></app-card-rules>

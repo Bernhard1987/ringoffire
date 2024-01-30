@@ -34,8 +34,6 @@ import { Subscription } from 'rxjs';
 export class GameComponent {
   addPlayerComponent = DialogAddPlayerComponent;
   imprintComponent = DialogImprintComponent;
-  pickCardAnimation = false;
-  currentCard: string = '';
   game: Game = new Game;
   drawableCardStackAmount: number = 9;
   gameId: string = '';
@@ -73,15 +71,18 @@ export class GameComponent {
   }
 
   takeCard() {
-    if (!this.pickCardAnimation && this.game.players.length > 1) {
+    if (!this.game.pickCardAnimation && this.game.players.length > 1) {
       let internalCurrentCard = this.game.stack.pop(); //pop takes last value out of array, original value will be deleted
       if (internalCurrentCard != undefined) {
-        this.currentCard = internalCurrentCard;
+        this.game.currentCard = internalCurrentCard;
+        console.log('internalCurrentCard is ', internalCurrentCard);
+        this.updateGame();
       }
-      this.pickCardAnimation = true;
+      this.game.pickCardAnimation = true;
+      this.updateGame();
       setTimeout(() => {
-        this.pickCardAnimation = false;
-        this.game.playedCard.push(this.currentCard);
+        this.game.pickCardAnimation = false;
+        this.game.playedCard.push(this.game.currentCard);
         this.game.currentPlayer++;
         this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
         this.updateGame();

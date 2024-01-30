@@ -14,32 +14,34 @@ export class GameUpdateService {
     players: [],
     stack: [],
     playedCard: [],
-    currentPlayer: 0
+    currentPlayer: 0,
+    pickCardAnimation: false,
+    currentCard: ''
   };
   gameId: string = '';
 
-  unsubList;
+  // unsubList;
   gameUnsub!: () => void;
   gameSubscription: Subscription = new Subscription;
 
   firestore: Firestore = inject(Firestore);
 
   constructor() {
-    this.unsubList = this.collectGamesList();
+    // this.unsubList = this.collectGamesList();
   }
 
   ngOnDestroy() {
-    this.unsubList();
+    // this.unsubList();
   }
 
-  collectGamesList() {
-    return onSnapshot(this.getGamesRef(), (list) => {
-      this.gameList = [];
-      list.forEach(element => {
-        this.gameList.push(this.setGameObject(element.data()));
-      })
-    })
-  }
+  // collectGamesList() {
+  //   return onSnapshot(this.getGamesRef(), (list) => {
+  //     this.gameList = [];
+  //     list.forEach(element => {
+  //       this.gameList.push(this.setGameObject(element.data()));
+  //     })
+  //   })
+  // }
 
   getGamesRef() {
     return collection(this.firestore, 'games');
@@ -54,7 +56,9 @@ export class GameUpdateService {
       players: obj.players || "",
       stack: obj.stack || "",
       playedCard: obj.playedCard || "",
-      currentPlayer: obj.currentPlayer || 0
+      currentPlayer: obj.currentPlayer || 0,
+      pickCardAnimation: obj.pickCardAnimation,
+      currentCard: obj.currentCard
     }
   }
 
@@ -82,7 +86,9 @@ export class GameUpdateService {
       players: currentGame.players,
       stack: currentGame.stack,
       playedCard: currentGame.playedCard,
-      currentPlayer: currentGame.currentPlayer
+      currentPlayer: currentGame.currentPlayer,
+      pickCardAnimation: currentGame.pickCardAnimation,
+      currentCard: currentGame.currentCard
     }
   }
 

@@ -30,6 +30,8 @@ export class StartScreenComponent {
       stack: this.game.stack,
       playedCard: this.game.playedCard,
       currentPlayer: this.game.currentPlayer,
+      pickCardAnimation: this.game.pickCardAnimation,
+      currentCard: this.game.currentCard
     }
     await this.gameUpdateService.addGame(newGame);
     this.gameId = this.gameUpdateService.gameId;
