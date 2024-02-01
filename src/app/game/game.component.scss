@@ -21,6 +21,7 @@
     right: 16px;
     border-radius: 50px 16px 16px 50px;
     background-color: $player-grey;
+    z-index: 1;
 
     &:nth-child(1) {
         background-color: $player-red;
